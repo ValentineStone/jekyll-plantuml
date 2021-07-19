@@ -18,26 +18,19 @@ module Jekyll
       end
 
       def output_ext(ext)
-        extension = type.split(':', 2).first
-        case extension
-        when 'braille'
-          extension = 'png'
-        when 'atxt', 'utxt'
-          extension = 'txt'
-        end
         ".#{extension}"
       end
 
       def convert(content)
         cache.getset(content) do
-          cmd = "java -Djava.awt.headless=true #{java_args} -jar #{jar_path} -t#{type} #{plantuml_args} -pipe"
+          cmd = "java -Djava.awt.headless=true #{java_args} -jar #{plantuml_jar} -t#{type} #{plantuml_args} -pipe"
           result, status = Open3.capture2(cmd, :stdin_data=>content, :binmode=>true)
           result
         end
       end
 
-      def jar_path
-        File.expand_path(config['plantuml']['jar_path'] || 'plantuml.jar')
+      def plantuml_jar
+        File.expand_path(config['plantuml']['plantuml_jar'] || 'plantuml.jar')
       end
 
       def type
@@ -50,6 +43,21 @@ module Jekyll
 
       def java_args
         config['plantuml']['java_args'] || ''
+      end
+
+      # Support all types otlined in "Types of Output File" table
+      # https://plantuml.com/command-line 
+      def extension
+        config['plantuml']['extension'] || begin
+          ext = type.split(':', 2).first
+          case ext
+          when 'braille'
+            ext = 'png'
+          when 'txt'
+            ext = 'atxt'
+          end
+          ext
+        end
       end
 
       def cache
