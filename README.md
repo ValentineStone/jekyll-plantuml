@@ -48,8 +48,9 @@ plantuml:
 - `plantuml_jar` is just `plantuml.jar` by default
 - `type` is svg by default
 - `extension` is deduced from `type` according to **"Types of Output File"** table over at [https://plantuml.com/command-line](https://plantuml.com/command-line#ezoic-pub-ad-placeholder-114) (ex: `type: braille` gives you `extension: png`), but can be specified to override it (like say generating a .txt file instead of .atxt or .utxt)
-- `plantuml_args` are any of the arguments you can find on https://plantuml.com/command-line and is empty string by default
-- `java_args` are ye java arguments
+- `plantuml_args` are any of the arguments you can find on https://plantuml.com/command-line
+- `java_args` are ye java arguments  
+Both `_args` options are empty strings by default
 
 ## How work?
 
