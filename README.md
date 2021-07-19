@@ -19,7 +19,7 @@ You can use git submodules to install this as a plugin.
 From your jekyll folder:
 
 ```bash
-touch _plugins
+mkdir _plugins # if need be
 cd _plugins
 git submodule add https://github.com/ValentineStone/jekyll-plantuml
 ```
